@@ -88,7 +88,6 @@ const expected = [
   "call this.calendar.dateFromFields",
   // InterpretISODateTimeOffset
   "call this.timeZone.getPossibleInstantsFor",
-  "call this.timeZone.getOffsetNanosecondsFor",
 ];
 const actual = [];
 
@@ -146,10 +145,7 @@ const fallBackFields = TemporalHelpers.propertyBagObserver(actual, {
   offset: "+00:00", // ignored
 }, "fields");
 dstInstance.with(fallBackFields, options);
-assert.compareArray(actual, expected.concat([
-  // extra call in InterpretISODateTimeOffset
-  "call this.timeZone.getOffsetNanosecondsFor",
-]), "order of operations at repeated wall-clock time");
+assert.compareArray(actual, expected, "order of operations at repeated wall-clock time");
 actual.splice(0); // clear
 
 const springForwardFields = TemporalHelpers.propertyBagObserver(actual, {
@@ -167,6 +163,8 @@ const springForwardFields = TemporalHelpers.propertyBagObserver(actual, {
 }, "fields");
 dstInstance.with(springForwardFields, options);
 assert.compareArray(actual, expected.concat([
+  // extra call in InterpretISODateTimeOffset
+  "call this.timeZone.getOffsetNanosecondsFor",
   // DisambiguatePossibleInstants
   "call this.timeZone.getOffsetNanosecondsFor",
   "call this.timeZone.getPossibleInstantsFor",

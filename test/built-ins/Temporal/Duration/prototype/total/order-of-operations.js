@@ -237,7 +237,6 @@ const expectedOpsForZonedRelativeTo = [
   "get options.relativeTo.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call options.relativeTo.timeZone.getPossibleInstantsFor",
-  "call options.relativeTo.timeZone.getOffsetNanosecondsFor",
   // GetTemporalUnit
   "get options.unit",
   "get options.unit.toString",

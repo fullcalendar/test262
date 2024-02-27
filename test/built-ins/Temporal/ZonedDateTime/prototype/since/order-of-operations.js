@@ -73,10 +73,10 @@ const expected = [
   "has other.timeZone.getPossibleInstantsFor",
   "has other.timeZone.id",
   "call other.calendar.dateFromFields",
+  // InterpretISODateTimeOffset
   "get other.timeZone.getOffsetNanosecondsFor",
   "get other.timeZone.getPossibleInstantsFor",
   "call other.timeZone.getPossibleInstantsFor",
-  "call other.timeZone.getOffsetNanosecondsFor",
   // CalendarEquals
   "get this.calendar.id",
   "get other.calendar.id",
@@ -264,12 +264,10 @@ assert.compareArray(actual, [
   "has other.timeZone.getPossibleInstantsFor",
   "has other.timeZone.id",
   "call other.calendar.dateFromFields",
+  // InterpretISODateTimeOffset
   "get other.timeZone.getOffsetNanosecondsFor",
   "get other.timeZone.getPossibleInstantsFor",
   "call other.timeZone.getPossibleInstantsFor",
-  "call other.timeZone.getOffsetNanosecondsFor",
-  // NOTE: extra because of wall-clock time ambiguity:
-  "call other.timeZone.getOffsetNanosecondsFor",
   // CalendarEquals
   "get this.calendar.id",
   "get other.calendar.id",
