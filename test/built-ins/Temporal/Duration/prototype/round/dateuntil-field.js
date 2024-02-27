@@ -29,7 +29,6 @@ const relativeTo = new Temporal.PlainDate(2018, 10, 12, calendar);
 
 const expected = [
   "call dateUntil",  // UnbalanceDateDurationRelative
-  "call dateUntil",  // BalanceDateDurationRelative
 ];
 
 const years = new Temporal.Duration(2);
