@@ -20,7 +20,7 @@ const earlier = new Temporal.ZonedDateTime(0n, timeZone, calendar);
 
 const later1 = new Temporal.ZonedDateTime(1_213_200_000_000_000n, timeZone, calendar);
 earlier.until(later1, { largestUnit: "weeks" });
-assert.sameValue(calendar.dateAddCallCount, 1, "basic difference with largestUnit >days");
+assert.sameValue(calendar.dateAddCallCount, 0, "basic difference with largestUnit >days");
 
 // Difference with rounding, with smallestUnit a calendar unit.
 // The calls come from these paths:
@@ -34,4 +34,4 @@ assert.sameValue(calendar.dateAddCallCount, 1, "basic difference with largestUni
 calendar.dateAddCallCount = 0;
 
 earlier.until(later1, { smallestUnit: "weeks" });
-assert.sameValue(calendar.dateAddCallCount, 4, "rounding difference with calendar smallestUnit");
+assert.sameValue(calendar.dateAddCallCount, 2, "rounding difference with calendar smallestUnit");
