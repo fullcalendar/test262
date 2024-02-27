@@ -29,7 +29,6 @@ const expected = [
   "call this.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call this.timeZone.getPossibleInstantsFor",
-  "call this.timeZone.getOffsetNanosecondsFor",
 ];
 const actual = [];
 
@@ -108,7 +107,6 @@ const expectedSkippedDateTime = [
   "call this.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call this.timeZone.getPossibleInstantsFor",
-  "call this.timeZone.getOffsetNanosecondsFor",
 ];
 
 springForwardInstance.round(options);

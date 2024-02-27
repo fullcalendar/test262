@@ -229,10 +229,10 @@ const expectedOpsForZonedRelativeTo = baseExpectedOpsWithRelativeTo.concat([
   "has options.relativeTo.timeZone.getOffsetNanosecondsFor",
   "has options.relativeTo.timeZone.getPossibleInstantsFor",
   "has options.relativeTo.timeZone.id",
+  // InterpretISODateTimeOffset
   "get options.relativeTo.timeZone.getOffsetNanosecondsFor",
   "get options.relativeTo.timeZone.getPossibleInstantsFor",
   "call options.relativeTo.timeZone.getPossibleInstantsFor",
-  "call options.relativeTo.timeZone.getOffsetNanosecondsFor",
   // lookup in Duration.compare
   "get options.relativeTo.calendar.dateAdd",
 ]);

@@ -96,7 +96,6 @@ const expected = [
   "get item.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call item.timeZone.getPossibleInstantsFor",
-  "call item.timeZone.getOffsetNanosecondsFor",
 ];
 const actual = [];
 

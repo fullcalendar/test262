@@ -79,7 +79,6 @@ const expected = [
   "get other.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call other.timeZone.getPossibleInstantsFor",
-  "call other.timeZone.getOffsetNanosecondsFor",
   // TimeZoneEquals
   "get this.timeZone.id",
   "get other.timeZone.id",

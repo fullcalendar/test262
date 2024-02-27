@@ -78,7 +78,6 @@ const expected = [
   "get one.timeZone.getOffsetNanosecondsFor",
   "get one.timeZone.getPossibleInstantsFor",
   "call one.timeZone.getPossibleInstantsFor",
-  "call one.timeZone.getOffsetNanosecondsFor",
   // Same set of operations, for the other argument:
   "get two.calendar",
   "has two.calendar.dateAdd",
@@ -149,7 +148,6 @@ const expected = [
   "get two.timeZone.getOffsetNanosecondsFor",
   "get two.timeZone.getPossibleInstantsFor",
   "call two.timeZone.getPossibleInstantsFor",
-  "call two.timeZone.getOffsetNanosecondsFor",
 ];
 const actual = [];
 

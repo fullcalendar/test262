@@ -308,7 +308,6 @@ const expectedOpsForZonedRelativeTo = [
   "get options.relativeTo.timeZone.getPossibleInstantsFor",
   // InterpretISODateTimeOffset
   "call options.relativeTo.timeZone.getPossibleInstantsFor",
-  "call options.relativeTo.timeZone.getOffsetNanosecondsFor",
   "get options.roundingIncrement",
   "get options.roundingIncrement.valueOf",
   "call options.roundingIncrement.valueOf",
