@@ -117,8 +117,6 @@ Temporal.ZonedDateTime.from(
 assert.compareArray(actual, expected.concat([
   // InterpretISODateTimeOffset
   "call timeZone.getPossibleInstantsFor",
-  "call timeZone.getOffsetNanosecondsFor",
-  "call timeZone.getOffsetNanosecondsFor",
 ]), "order of operations converting property bag at repeated wall-clock time with offset: prefer");
 actual.splice(0); // clear
 
@@ -129,7 +127,5 @@ Temporal.ZonedDateTime.from(
 assert.compareArray(actual, expected.concat([
   // InterpretISODateTimeOffset
   "call timeZone.getPossibleInstantsFor",
-  "call timeZone.getOffsetNanosecondsFor",
-  "call timeZone.getOffsetNanosecondsFor",
 ]), "order of operations converting property bag at repeated wall-clock time with offset: reject");
 actual.splice(0); // clear
