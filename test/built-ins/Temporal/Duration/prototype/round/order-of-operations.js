@@ -135,12 +135,6 @@ actual.splice(0); // clear
 const expectedOpsForYearRounding = expectedOpsForPlainRelativeTo.concat([
   "call options.relativeTo.calendar.dateAdd",    // 12.d
   "call options.relativeTo.calendar.dateAdd",    // 12.f
-  "call options.relativeTo.calendar.dateUntil",  // 12.n
-  "call options.relativeTo.calendar.dateAdd",    // 12.r MoveRelativeDate
-  "call options.relativeTo.calendar.dateAdd",    // 12.x MoveRelativeDate
-  // BalanceDateDurationRelative
-  "call options.relativeTo.calendar.dateAdd",    // 9.c
-  "call options.relativeTo.calendar.dateUntil",  // 9.d
 ]);
 const instanceYears = new Temporal.Duration(1, 12, 0, 0, /* hours = */ 2400);
 instanceYears.round(createOptionsObserver({ smallestUnit: "years", relativeTo: plainRelativeTo }));
