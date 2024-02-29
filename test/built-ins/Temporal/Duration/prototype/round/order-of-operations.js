@@ -102,9 +102,6 @@ const expectedOpsForPlainRelativeTo = [
   "get options.smallestUnit",
   "get options.smallestUnit.toString",
   "call options.smallestUnit.toString",
-  // lookup in Duration.p.round
-  "get options.relativeTo.calendar.dateAdd",
-  "get options.relativeTo.calendar.dateUntil",
 ];
 
 const plainRelativeTo = TemporalHelpers.propertyBagObserver(actual, {
@@ -122,6 +119,9 @@ actual.splice(0); // clear
 
 // code path through RoundDuration that rounds to the nearest year, with minimal calendar calls:
 const expectedMinimalOpsForYearRounding = expectedOpsForPlainRelativeTo.concat([
+  // lookup in Duration.p.round
+  "get options.relativeTo.calendar.dateAdd",
+  "get options.relativeTo.calendar.dateUntil",
   // 7.e and 7.g not called because years, months, weeks are 0
   "call options.relativeTo.calendar.dateUntil",  // 7.o
   // 7.s not called because years, months, weeks are 0
