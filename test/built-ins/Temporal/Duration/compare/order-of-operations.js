@@ -137,8 +137,6 @@ const expectedOpsForPlainRelativeTo = baseExpectedOpsWithRelativeTo.concat([
   "get options.relativeTo.year.valueOf",
   "call options.relativeTo.year.valueOf",
   "call options.relativeTo.calendar.dateFromFields",
-  // lookup in Duration.compare
-  "get options.relativeTo.calendar.dateAdd",
 ]);
 
 const plainRelativeTo = TemporalHelpers.propertyBagObserver(actual, {
@@ -181,6 +179,8 @@ actual.splice(0); // clear
 // to days:
 const expectedOpsForPlainDayBalancing = expectedOpsForPlainRelativeTo.concat(
   [
+    // lookup in Duration.compare
+    "get options.relativeTo.calendar.dateAdd",
     "call options.relativeTo.calendar.dateAdd",  // UnbalanceDateDurationRelative on 1st argument
     "call options.relativeTo.calendar.dateAdd",  // UnbalanceDateDurationRelative on 2nd argument
   ]

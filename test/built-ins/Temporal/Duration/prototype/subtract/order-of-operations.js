@@ -230,9 +230,6 @@ const expectedOpsForPlainRelativeToNoCalendarOperations = [
   "call options.relativeTo.year.valueOf",
   // InterpretTemporalDateTimeFields
   "call options.relativeTo.calendar.dateFromFields",
-  // lookup in AddDurationToOrSubtractDurationFromDuration
-  "get options.relativeTo.calendar.dateAdd",
-  "get options.relativeTo.calendar.dateUntil",
 ];
 
 const noCalendarInstance = new Temporal.Duration(0, 0, 0, 4, 5, 6, 7, 987, 654, 321);
@@ -468,10 +465,6 @@ const expectedOpsForZonedRelativeToNoDaysOperations = [
   "get options.relativeTo.timeZone.getOffsetNanosecondsFor",
   "get options.relativeTo.timeZone.getPossibleInstantsFor",
   "call options.relativeTo.timeZone.getPossibleInstantsFor",
-  "call options.relativeTo.timeZone.getOffsetNanosecondsFor",
-  // lookup in AddDurationToOrSubtractDurationFromDuration
-  "get options.relativeTo.calendar.dateAdd",
-  "get options.relativeTo.calendar.dateUntil",
 ];
 
 const noDaysInstance = new Temporal.Duration(0, 0, 0, 0, 5, 6, 7, 987, 654, 321);
