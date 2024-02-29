@@ -123,7 +123,6 @@ const expectedOpsForPlainRelativeTo = expected.concat([
   "get options.relativeTo.calendar.dateUntil",
   // AddDuration
   "call options.relativeTo.calendar.dateAdd",
-  "call options.relativeTo.calendar.dateAdd",
   "call options.relativeTo.calendar.dateUntil",
 ]);
 
