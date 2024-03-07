@@ -56,8 +56,6 @@ const expected = [
   // calculate last day of month
   "call this.calendar.dateFromFields",
   "call this.calendar.dateAdd",
-  "call this.calendar.day",
-  "call this.calendar.dateFromFields",
   // CopyDataProperties
   "ownKeys options",
   "getOwnPropertyDescriptor options.overflow",
@@ -149,8 +147,6 @@ const noCalendarExpected = [
   "call this.calendar.dateFromFields",
   // calculate last day of month
   "call this.calendar.dateAdd",
-  "call this.calendar.day",
-  "call this.calendar.dateFromFields",
   // SnapshotOwnProperties
   "ownKeys options",
   "getOwnPropertyDescriptor options.overflow",

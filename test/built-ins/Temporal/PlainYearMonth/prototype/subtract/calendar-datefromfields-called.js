@@ -107,12 +107,7 @@ TemporalHelpers.assertPlainYearMonth(
   "subtracting positive less than one month's worth of days yields the same month",
   /* era = */ undefined, /* eraYear = */ undefined, /* referenceISODay = */ 6
 );
-assert.sameValue(calendar.dateFromFieldsCalls.length, 2, "dateFromFields was called twice");
-assert.deepEqual(
-  calendar.dateFromFieldsCalls[1][0],
-  { year: 2022, monthCode: "M02", day: 36 },
-  "last day of month 2 passed to dateFromFields when subtracting positive duration"
-);
+assert.sameValue(calendar.dateFromFieldsCalls.length, 1, "dateFromFields was called once");
 assert.sameValue(calendar.dateFromFieldsCalls[0][1], undefined, "undefined options passed");
 
 calendar.dateFromFieldsCalls = [];
@@ -122,12 +117,7 @@ TemporalHelpers.assertPlainYearMonth(
   "subtracting positive one month's worth of days yields the previous month",
   /* era = */ undefined, /* eraYear = */ undefined, /* referenceISODay = */ 1
 );
-assert.sameValue(calendar.dateFromFieldsCalls.length, 2, "dateFromFields was called twice");
-assert.deepEqual(
-  calendar.dateFromFieldsCalls[1][0],
-  { year: 2022, monthCode: "M02", day: 36 },
-  "last day of month 2 passed to dateFromFields when subtracting positive duration"
-);
+assert.sameValue(calendar.dateFromFieldsCalls.length, 1, "dateFromFields was called once");
 assert.sameValue(calendar.dateFromFieldsCalls[0][1], undefined, "undefined options passed");
 
 calendar.dateFromFieldsCalls = [];
