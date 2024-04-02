@@ -1,0 +1,116 @@
+// Copyright (C) 2024 Igalia, S.L. All rights reserved.
+// This code is governed by the BSD license found in the LICENSE file.
+/*---
+esid: sec-temporal.duration.prototype.round
+description: >
+    Rounding the resulting duration takes the time zone's UTC offset shifts
+    into account
+includes: [temporalHelpers.js]
+features: [Temporal]
+---*/
+
+/*
+Based on dst-rounding-results.js, which strangely were added fix this:
+  "Tests for correct intermediate value in ZonedDateTime difference/rounding"
+  (which is more about intermediate values in the DIFFING)
+  Old PR: https://github.com/tc39/proposal-temporal/pull/2760
+  New PR: https://github.com/tc39/proposal-temporal/pull/2810
+  Test Diff: https://github.com/tc39/test262/pull/4012/files
+  //
+  // TODO: recommend removing dst-rounding-results.js from that PR
+
+However, results don't consider DST lost-hour. That will be fixed with this:
+  Ticket: https://github.com/tc39/proposal-temporal/issues/2742
+  PR: https://github.com/tc39/proposal-temporal/pull/2758 (ptomato)
+
+And of course it's related to the relative-rounding refactor:
+  Ticket: https://github.com/tc39/proposal-temporal/issues/2792
+*/
+
+const timeZone = TemporalHelpers.springForwardFallBackTimeZone();
+
+// Based on a test case by Adam Shaw
+
+{
+  // Date part of duration lands on skipped DST hour, causing disambiguation
+  const duration = new Temporal.Duration(0, 1, 0, 15, 12);
+  const relativeTo = new Temporal.ZonedDateTime(
+    950868000_000_000_000n /* = 2000-02-18T10Z */,
+    timeZone); /* = 2000-02-18T02-08 in local time */
+
+  TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", relativeTo }),
+    0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+    "1 month 15 days 12 hours should be exactly 1.5 months, which rounds up to 2 months");
+
+  // TODO: did naive modification but needs more salient tests
+  TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", roundingMode: 'halfTrunc', relativeTo }),
+    0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+    "1 month 15 days 12 hours should be exactly 1.5 months, which rounds down to 1 month");
+}
+
+{
+  // Month-only part of duration lands on skipped DST hour, should not cause
+  // disambiguation
+  const duration = new Temporal.Duration(0, 1, 0, 15);
+  const relativeTo = new Temporal.ZonedDateTime(
+    951991200_000_000_000n /* = 2000-03-02T10Z */,
+    timeZone); /* = 2000-03-02T02-08 in local time */
+
+  // TODO: did naive modification but needs more salient tests
+  TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", relativeTo }),
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    "1 month 15 days should be exactly 1.5 months, which rounds up to 2 months");
+
+  TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", roundingMode: 'halfTrunc', relativeTo }),
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    "1 month 15 days should be exactly 1.5 months, which rounds down to 1 month");
+}
+
+// Day rounding
+// DST spring-forward hour skipped at 2000-04-02T02:00 (23 hour day)
+// 11.5 hours is 0.5
+{
+  const duration = new Temporal.Duration(0, 0, 0, 0, 11, 30);
+  const instant = timeZone.getPossibleInstantsFor(Temporal.PlainDateTime.from('2000-04-02T00:00:00'))[0]
+  const relativeTo = instant.toZonedDateTimeISO(timeZone)
+
+  TemporalHelpers.assertDuration(
+    duration.round({ relativeTo, smallestUnit: "days" }),
+    0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+  );
+
+  TemporalHelpers.assertDuration(
+    duration.round({ relativeTo, smallestUnit: "days", roundingMode: 'halfTrunc' }),
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  );
+}
+
+// Hour rounding,
+// BUT should still bubble-up units to days if hours-in-day exceeded (like AdjustRoundedDurationDays)
+// DST spring-forward hour skipped at 2000-04-02T02:00 (23 hour day)
+// 13hrs with 12hr ceil rounding should go up to 24hrs (exceeds current day), then 12hrs into NEXT day
+{
+  const duration = new Temporal.Duration(0, 0, 0, 0, 13);
+  const instant = timeZone.getPossibleInstantsFor(Temporal.PlainDateTime.from('2000-04-02T00:00:00'))[0]
+  const relativeTo = instant.toZonedDateTimeISO(timeZone)
+
+  TemporalHelpers.assertDuration(
+    duration.round({ relativeTo, smallestUnit: "hours", roundingIncrement: 12, roundingMode: "ceil" }),
+    0, 0, 0, 1, 12, 0, 0, 0, 0, 0,
+  );
+}
+
+// Hour rounding, WITH MONTH ADDITION
+// BUT should still bubble-up units to days if hours-in-day exceeded (like AdjustRoundedDurationDays)
+// DST spring-forward hour skipped at 2000-04-02T02:00 (23 hour day)
+// 13hrs with 12hr ceil rounding should go up to 24hrs (exceeds current day), then 12hrs into NEXT day
+{
+  const duration = new Temporal.Duration(0, 1, 0, 0, 13);
+  const instant = timeZone.getPossibleInstantsFor(Temporal.PlainDateTime.from('2000-03-02T00:00:00'))[0]
+  const relativeTo = instant.toZonedDateTimeISO(timeZone)
+
+  TemporalHelpers.assertDuration(
+    duration.round({ relativeTo, smallestUnit: "hours", roundingIncrement: 12, roundingMode: "ceil" }),
+    0, 1, 0, 1, 12, 0, 0, 0, 0, 0,
+  );
+}
