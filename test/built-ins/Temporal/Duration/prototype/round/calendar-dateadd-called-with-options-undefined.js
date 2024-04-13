@@ -54,4 +54,4 @@ calendar.dateAddCallCount = 0;
 
 const instance3 = new Temporal.Duration(1, 1, 1, 1, 1);
 instance3.round({ smallestUnit: "days", relativeTo });
-assert.sameValue(calendar.dateAddCallCount, 1, "rounding with days smallestUnit");
+assert.sameValue(calendar.dateAddCallCount, 3, "rounding with days smallestUnit");
