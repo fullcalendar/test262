@@ -280,17 +280,19 @@ assert.sameValue(oneDay.negated().total({
   relativeTo
 }), -25);
 
-// start in normal hour, end in skipped hour
-var relativeTo = Temporal.PlainDateTime.from("2000-04-01T02:30").toZonedDateTime(timeZone);
-var totalDays = hours25.total({
-  unit: "days",
-  relativeTo
-});
-assert(Math.abs(totalDays - (1 + 1 / 24)) < Number.EPSILON);
-assert.sameValue(oneDay.total({
-  unit: "hours",
-  relativeTo
-}), 24);
+// commented our because of https://github.com/tc39/proposal-temporal/issues/2817
+//
+// // start in normal hour, end in skipped hour
+// var relativeTo = Temporal.PlainDateTime.from("2000-04-01T02:30").toZonedDateTime(timeZone);
+// var totalDays = hours25.total({
+//   unit: "days",
+//   relativeTo
+// });
+// assert(Math.abs(totalDays - (1 + 1 / 24)) < Number.EPSILON);
+// assert.sameValue(oneDay.total({
+//   unit: "hours",
+//   relativeTo
+// }), 24);
 
 // start before skipped hour, end >1 day after
 var totalDays = hours25.total({
