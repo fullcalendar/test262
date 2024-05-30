@@ -15,41 +15,23 @@ const timeZone = TemporalHelpers.springForwardFallBackTimeZone();
 
 {
   // Date part of duration lands on skipped DST hour, causing disambiguation
-  const duration = new Temporal.Duration(0, 1, 0, 15, 12);
+  const duration = new Temporal.Duration(0, 1, 0, 15, 11, 30);
   const relativeTo = new Temporal.ZonedDateTime(
     950868000_000_000_000n /* = 2000-02-18T10Z */,
     timeZone); /* = 2000-02-18T02-08 in local time */
 
-  // TODO: make this test nicer
-  const month1 = relativeTo.add({ months: 1 })
-  const middle = relativeTo.add(duration)
-  const month2 = relativeTo.add({ months: 2 })
-  const answer = 1 + (
-    Number(middle.epochNanoseconds - month1.epochNanoseconds) /
-    Number(month2.epochNanoseconds - month1.epochNanoseconds)
-  )
-
-  assert.sameValue(duration.total({ unit: "months", relativeTo }), answer,
-    "1 month 15 days 12 hours should be exactly 1.5 months");
+  assert.sameValue(duration.total({ unit: "months", relativeTo }), 1.5,
+    "1 month 15 days 11:30 should be exactly 1.5 months");
 }
 
 {
   // Month-only part of duration lands on skipped DST hour, should not cause
   // disambiguation
-  const duration = new Temporal.Duration(0, 1, 0, 15);
+  const duration = new Temporal.Duration(0, 1, 0, 15, 0, 30);
   const relativeTo = new Temporal.ZonedDateTime(
     951991200_000_000_000n /* = 2000-03-02T10Z */,
     timeZone); /* = 2000-03-02T02-08 in local time */
 
-  // TODO: make this test nicer
-  const month1 = relativeTo.add({ months: 1 })
-  const middle = relativeTo.add(duration)
-  const month2 = relativeTo.add({ months: 2 })
-  const answer = 1 + (
-    Number(middle.epochNanoseconds - month1.epochNanoseconds) /
-    Number(month2.epochNanoseconds - month1.epochNanoseconds)
-  )
-
-  assert.sameValue(duration.total({ unit: "months", relativeTo }), answer,
-    "1 month 15 days should be exactly 1.5 months");
+  assert.sameValue(duration.total({ unit: "months", relativeTo }), 1.5,
+    "1 month 15 days 00:30 should be exactly 1.5 months");
 }

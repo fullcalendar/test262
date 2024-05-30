@@ -20,11 +20,3 @@ const earlier = new Temporal.ZonedDateTime(1_000_000_000_000_000_000n, "UTC");
 const later = new Temporal.ZonedDateTime(1_000_000_000_000_000_005n, "UTC");
 const result = later.since(earlier, { roundingIncrement: 2.5, roundingMode: "trunc" });
 TemporalHelpers.assertDuration(result, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, "roundingIncrement 2.5 truncates to 2");
-
-// I would argue RangeError should be thrown because this operation is out-of-range:
-//  new Temporal.ZonedDateTime(1_000_000_000_000_000_005n, "UTC").add({ days: -1e9 })
-// We need to compute epochNanosecond start/end of range because Zoned days could be irregular
-assert.throws(RangeError, () => {
-  const result2 = later.since(earlier, { smallestUnit: "days", roundingIncrement: 1e9 + 0.5, roundingMode: "expand" });
-  TemporalHelpers.assertDuration(result2, 0, 0, 0, 1e9, 0, 0, 0, 0, 0, 0, "roundingIncrement 1e9 + 0.5 truncates to 1e9");
-});
