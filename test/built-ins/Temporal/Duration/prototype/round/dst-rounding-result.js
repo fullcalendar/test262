@@ -23,10 +23,8 @@ const timeZone = TemporalHelpers.springForwardFallBackTimeZone();
   TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", relativeTo }),
     0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
     "1 month 15 days 12 hours should be exactly 1.5 months, which rounds up to 2 months");
-
-  // TODO: did naive modification but needs more salient tests
   TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", roundingMode: 'halfTrunc', relativeTo }),
-    0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
     "1 month 15 days 12 hours should be exactly 1.5 months, which rounds down to 1 month");
 }
 
@@ -37,7 +35,6 @@ const timeZone = TemporalHelpers.springForwardFallBackTimeZone();
     951991200_000_000_000n /* = 2000-03-02T10Z */,
     timeZone); /* = 2000-03-02T02-08 in local time */
 
-  // TODO: did naive modification but needs more salient tests
   TemporalHelpers.assertDuration(duration.round({ smallestUnit: "months", relativeTo }),
     0, 2, 0, 0, 0, 0, 0, 0, 0, 0,
     "1 month 15 days 00:30 should be exactly 1.5 months, which rounds up to 2 months");
