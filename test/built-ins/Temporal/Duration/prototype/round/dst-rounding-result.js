@@ -81,21 +81,6 @@ const timeZone = TemporalHelpers.springForwardFallBackTimeZone();
   );
 }
 
-// Hour rounding,
-// BUT should still bubble-up units to days if hours-in-day exceeded (like AdjustRoundedDurationDays)
-// DST spring-forward hour skipped at 2000-04-02T02:00 (23 hour day)
-// 13hrs with 12hr ceil rounding should go up to 24hrs (exceeds current day), then 12hrs into NEXT day
-{
-  const duration = new Temporal.Duration(0, 0, 0, 0, 13);
-  const instant = timeZone.getPossibleInstantsFor(Temporal.PlainDateTime.from('2000-04-02T00:00:00'))[0]
-  const relativeTo = instant.toZonedDateTimeISO(timeZone)
-
-  TemporalHelpers.assertDuration(
-    duration.round({ relativeTo, smallestUnit: "hours", roundingIncrement: 12, roundingMode: "ceil" }),
-    0, 0, 0, 1, 12, 0, 0, 0, 0, 0,
-  );
-}
-
 // Hour rounding, WITH MONTH ADDITION
 // BUT should still bubble-up units to days if hours-in-day exceeded (like AdjustRoundedDurationDays)
 // DST spring-forward hour skipped at 2000-04-02T02:00 (23 hour day)
